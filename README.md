@@ -14,6 +14,40 @@ Editar
 
 ---
 
+## Clase CursorDelPool
+La clase CursorDelPool facilita la gestión de conexiones a la base de datos utilizando el patrón de contexto (with). Esta clase asegura:
+
+- Obtención automática de una conexión y cursor: Al entrar en el contexto.
+- Commit o rollback automático: Dependiendo de si se produce una excepción dentro del bloque.
+- Liberación de la conexión: Cuando el bloque finaliza.
+
+## Ejemplo de uso
+
+```python
+from conexion import Conexion
+from cursor_del_pool import CursorDelPool
+
+if __name__ == '__main__':
+    with CursorDelPool() as cursor:
+        cursor.execute('SELECT * FROM persona')
+        print(cursor.fetchall())
+
+---
+### Modificaciones en la Clase PersonaDAO
+Se han actualizado los métodos de la clase PersonaDAO para utilizar el CursorDelPool con bloques `with`. Esto mejora la gestión de conexiones y asegura que los recursos se liberen correctamente, incluso en caso de excepciones.
+
+#### Métodos disponibles
+
+**seleccionar(cls)**  
+Recupera todos los registros de la tabla persona.
+
+```python
+personas = PersonaDAO.seleccionar()
+for persona in personas:
+    print(persona)
+
+---
+
 ## Requisitos Previos
 
 1. **Python 3.8 o superior**.
@@ -172,35 +206,5 @@ Manejo de excepciones más específicas.
 Implementación de pruebas unitarias para validar la funcionalidad.
 Configuración dinámica de los parámetros de conexión mediante un archivo .env.
 
-### Clase CursorDelPool
-La clase CursorDelPool facilita la gestión de conexiones a la base de datos utilizando el patrón de contexto (with). Esta clase asegura:
 
-- Obtención automática de una conexión y cursor: Al entrar en el contexto.
-- Commit o rollback automático: Dependiendo de si se produce una excepción dentro del bloque.
-- Liberación de la conexión: Cuando el bloque finaliza.
-
-#### Ejemplo de uso
-
-```python
-from conexion import Conexion
-from cursor_del_pool import CursorDelPool
-
-if __name__ == '__main__':
-    with CursorDelPool() as cursor:
-        cursor.execute('SELECT * FROM persona')
-        print(cursor.fetchall())
-
----
-### Modificaciones en la Clase PersonaDAO
-Se han actualizado los métodos de la clase PersonaDAO para utilizar el CursorDelPool con bloques `with`. Esto mejora la gestión de conexiones y asegura que los recursos se liberen correctamente, incluso en caso de excepciones.
-
-#### Métodos disponibles
-
-**seleccionar(cls)**  
-Recupera todos los registros de la tabla persona.
-
-```python
-personas = PersonaDAO.seleccionar()
-for persona in personas:
-    print(persona)
 
