@@ -171,3 +171,4 @@ Mejoras Futuras
 Manejo de excepciones más específicas.
 Implementación de pruebas unitarias para validar la funcionalidad.
 Configuración dinámica de los parámetros de conexión mediante un archivo .env.
+
