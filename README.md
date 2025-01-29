@@ -23,7 +23,7 @@ La clase CursorDelPool facilita la gestión de conexiones a la base de datos uti
 
 ## Ejemplo de uso
 
-```python
+python
 from conexion import Conexion
 from cursor_del_pool import CursorDelPool
 
@@ -41,7 +41,7 @@ Se han actualizado los métodos de la clase PersonaDAO para utilizar el CursorDe
 **seleccionar(cls)**  
 Recupera todos los registros de la tabla persona.
 
-```python
+python
 personas = PersonaDAO.seleccionar()
 for persona in personas:
     print(persona)
